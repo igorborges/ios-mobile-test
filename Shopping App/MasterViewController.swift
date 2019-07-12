@@ -59,9 +59,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         // Get the object to put in the cell
         let text = model.segueArray[indexPath.row]
-        
+
         // Set the text in the cell
         cell.textLabel!.text = text
+        // Set the Accessibility Identifier to the list items
+        cell.textLabel!.accessibilityIdentifier = "menu_" + text.lowercased()
         cell.imageView!.image = model.seguesDictionary[text]
         
         return cell
