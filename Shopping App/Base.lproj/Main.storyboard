@@ -591,6 +591,7 @@
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="XXXX XXXX XXXX XXXX" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nzd-wX-RkB">
                                                 <rect key="frame" x="120" y="8" width="274" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="etCardNumber"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="274" id="VUm-T5-eyI"/>
                                                 </constraints>
@@ -606,6 +607,7 @@
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="MM" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ukp-bK-PEU">
                                                 <rect key="frame" x="120" y="46" width="134" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="etExpiryMonth"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="134" id="p4v-XS-Kv8"/>
                                                 </constraints>
@@ -615,6 +617,7 @@
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="YYYY" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AaK-su-b6A">
                                                 <rect key="frame" x="262" y="46" width="132" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="etExpiryYear"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="132" id="G9a-MP-KTm"/>
                                                 </constraints>
@@ -630,6 +633,7 @@
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QRS-m2-fWp">
                                                 <rect key="frame" x="120" y="84" width="134" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="etCVV"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="134" id="5WZ-ga-ngK"/>
                                                 </constraints>
@@ -704,6 +708,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veb-GI-Shu">
                                                 <rect key="frame" x="290" y="155" width="108" height="63"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="tvTotal"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="46"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

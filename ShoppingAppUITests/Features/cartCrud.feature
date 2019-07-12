@@ -1,5 +1,4 @@
 # The "Open app" scenario and all of the steps were made in order to keep the pattern used on Android, so we can reuse the features of one platform into the other
-
 Feature: Create, Read, Update and Delete from the cart
 
 Scenario: Open app
@@ -26,6 +25,8 @@ Scenario: Add to the cart
     And I will assert that the id "tvCategory" has the text "Category: Overwatch"
     And I will assert that the id "tvQuantity" has the text "Quantity: 1"
     When I click on button "btAddToCart"
+    Then I will assert that the text "Successful" is visible
+    And I will assert that the text "Item added to cart." is visible
 
 
 Scenario: Read from the cart
