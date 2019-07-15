@@ -1,5 +1,6 @@
 # The "Open app" scenario and all of the steps were made in order to keep the pattern used on Android, so we can reuse the features of one platform into the other
-Feature: Create, Read, Update and Delete from the cart
+# Add and remove an item from the cart
+Feature: CRUD cart
 
 Scenario: Open app
     Given that the app is opened

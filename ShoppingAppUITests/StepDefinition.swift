@@ -13,14 +13,22 @@ import Cucumberish
 public class CucumberishInitializer: NSObject {
    @objc public class func CucumberishSwiftInit()
     {
-        //Using XCUIApplication only available in XCUI test targets not the normal Unit test targets.
-//        var application : XCUIApplication!
+
         let app = XCUIApplication()
-        //A closure that will be executed only before executing any of your features
+
         beforeStart { () -> Void in
             //Any global initialization can go here
 
         }
+        
+        Given("that the app is opened") { (args, userInfo) -> Void in
+            XCUIApplication().launch()
+        }
+        
+        //        This step is here only to match with the Android Version, it actually does nothing
+        Then("the app will be closed") { (args, userInfo) -> Void in
+        }
+        
         Then("^I (?:will )?assert that the (text|id) \"([^\"]*)\" (?:is|has the text) \"?([^\"]*)\"?$"){ (args, userInfo) -> Void in
             let typeOfField = (args?[0])!
             let textValueOrId = (args?[1])!
@@ -41,12 +49,10 @@ public class CucumberishInitializer: NSObject {
             
         }
 
-        Given("that the app is opened") { (args, userInfo) -> Void in
-            XCUIApplication().launch()
-        }
         
-        Then("the app will be closed") { (args, userInfo) -> Void in
-            
+        When("^I click on button \"([^\"]*)\"$"){ (args, userInfo) -> Void in
+            let button = (args?[0])!
+            clickOnButton(button: button)
         }
         
         When("^I click on (text|button) \"([^\"]*)\"$"){ (args, userInfo) -> Void in
@@ -74,11 +80,21 @@ public class CucumberishInitializer: NSObject {
             }
         }
         
-        When("I fill in the field \"([^\\\"]*)\" with the text \"([^\\\"]*)\"$") { (args, userInfo) -> Void in
-            let field = (args?[0])!
-            let text = (args?[1])!
+        When("I fill in the (field|search bar) \"([^\\\"]*)\" with the text \"([^\\\"]*)\"$") { (args, userInfo) -> Void in
+            let typeOfField = (args?[0])!
+            let field = (args?[1])!
+            let text = (args?[2])!
             
-            fillInField(field: field, text: text)
+            switch(typeOfField){
+            case "field":
+                fillInField(field: field, text: text)
+            case "search bar":
+                fillInSearchBar(placeholder: field, text: text)
+            default:
+                print("Scenario not mapped")
+                XCTAssert(false)
+            }
+            
         }
         
         When("I choose the value \"([^\\\"]*)\" in the (picker wheel)$") { (args, userInfo) -> Void in
@@ -92,13 +108,7 @@ public class CucumberishInitializer: NSObject {
             }
         }
         
-        //Another step definition
-//        And("all data cleared") { (args, userInfo) -> Void in
-//            //Assume you defined an "I tap on \"(.*)\" button" step previousely, you can call it from your code as well.
-//            let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
-//            SStep(testCase, "I tap the \"Clear All Data\" button")
-//        }
-        
+//        Step Definition Functions
         
         func fillInField(field: String, text: String){
             let myComponent = XCUIApplication().textFields[field]
@@ -107,10 +117,17 @@ public class CucumberishInitializer: NSObject {
             myComponent.typeText("\n")
         }
         
+        func fillInSearchBar(placeholder: String, text: String){
+            let myComponent = XCUIApplication().searchFields[placeholder]
+            myComponent.tap()
+            myComponent.typeText(text)
+        }
         
-        //Create a bundle for the folder that contains your "Features" folder. In this example, the CucumberishInitializer.swift file is in the same directory as the "Features" folder.
+        func clickOnButton(button: String){
+            app.buttons[button].tap()
+        }
+        
         let bundle = Bundle(for: CucumberishInitializer.self)
-        
         Cucumberish.executeFeatures(inDirectory: "Features", from: bundle, includeTags: nil, excludeTags: nil)
     }
 }

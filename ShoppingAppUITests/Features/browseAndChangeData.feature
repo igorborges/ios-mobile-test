@@ -1,29 +1,25 @@
 
 # The "Open app" scenario and all of the steps were made in order to keep the pattern used on Android, so we can reuse the features of one platform into the other
-# Browse and buy an item with success at lease 2 different itens
-Feature: Buy 2 different items
+# Browse trough the search and buy one item changing the default Finish and Material and quantity in a different address
+Feature: Buy Item changing its parameters
 
     Scenario: Open app
         Given that the app is opened
 
-    Scenario: Add first item to the cart
-        When I click on text "List"
+    Scenario: Add item through Search
+        When I click on text "Search"
+        And I fill in the search bar "Search Item" with the text "head"
         And I click on text "D.Va Headset"
-        When I click on button "btAddToCart"
-        Then I will assert that the text "Successful" is visible
-        And I will assert that the text "Item added to cart." is visible
-        And I wait 2 seconds
-
-    Scenario: Add second item to the cart
-        When I click on button "LIST"
-        And I click on text "Scout's Gun"
-        When I click on button "btAddToCart"
+        And I click on button "Painting"
+        And I click on button "ABS"
+        And I click on button "Increment"
+        And I click on button "ADD TO CART"
         Then I will assert that the text "Successful" is visible
         And I will assert that the text "Item added to cart." is visible
         And I wait 2 seconds
 
     Scenario: Checkout
-        When I click on button "LIST"
+        When I click on button "SEARCH"
         And I click on button "SHOPPING APP"
         And I click on text "Cart"
         And I click on button "CHECKOUT"
@@ -33,12 +29,11 @@ Feature: Buy 2 different items
         And I fill in the field "etCVV" with the text "675"
         And I choose the value "87/93 Main North Rd, Nailsworth" in the picker wheel
         Then I will assert that the text "D.Va Headset" is visible
-        And I will assert that the text "Scout's Gun" is visible
-        And I will assert that the id "tvTotal" has the text "$158.00"
+        And I will assert that the id "tvTotal" has the text "$198.00"
 
     Scenario: Finish Pay
         When I click on button "PAY NOW"
-        Then I will assert that the text "Pay $158.00" is visible
+        Then I will assert that the text "Pay $198.00" is visible
         When I click on button "Pay"
         Then I will wait 2 seconds
         And I will assert that the text "Thank you for shopping!" is visible
@@ -46,3 +41,6 @@ Feature: Buy 2 different items
 
     Scenario: close app
         Then the app will be closed
+
+
+
