@@ -37,14 +37,11 @@ public class CucumberishInitializer: NSObject {
             
             switch(typeOfField){
             case "id":
-                XCTAssertEqual(app.staticTexts[textValueOrId].label, visibleOrIdValue)
+                assertTextById(id: textValueOrId, text: visibleOrIdValue)
             case "text":
-                if(shouldBeVisible){
-                    XCTAssert(app.staticTexts[textValueOrId].exists)
-                }
+                assertText(shouldBeVisible: shouldBeVisible, text: textValueOrId)
             default:
-                print("Scenario not mapped")
-                XCTAssert(false)
+                scenarioNotMapped()
             }
             
         }
@@ -60,24 +57,18 @@ public class CucumberishInitializer: NSObject {
             let textOrId = (args?[1])!
             switch(typeOfField){
             case "text":
-                app.staticTexts[textOrId].tap()
+                clickOnText(text: textOrId)
             case "button":
-                app.buttons[textOrId].tap()
+                clickOnButton(button: textOrId)
             default:
-                print("Scenario not mapped")
-                XCTAssert(false)
+                scenarioNotMapped()
             }
         }
         
         When("^I swipe (left|right) on the text \"([^\"]*)\"$"){ (args, userInfo) -> Void in
             let direction = (args?[0])!
             let text = (args?[1])!
-            if(direction.elementsEqual("left")){
-                app.staticTexts[text].swipeLeft()
-            }
-            else {
-                app.staticTexts[text].swipeRight()
-            }
+            swipe(text: text, direction: direction)
         }
         
         When("I fill in the (field|search bar) \"([^\\\"]*)\" with the text \"([^\\\"]*)\"$") { (args, userInfo) -> Void in
@@ -91,8 +82,7 @@ public class CucumberishInitializer: NSObject {
             case "search bar":
                 fillInSearchBar(placeholder: field, text: text)
             default:
-                print("Scenario not mapped")
-                XCTAssert(false)
+                scenarioNotMapped()
             }
             
         }
@@ -125,6 +115,37 @@ public class CucumberishInitializer: NSObject {
         
         func clickOnButton(button: String){
             app.buttons[button].tap()
+        }
+        
+        func clickOnText(text: String){
+            app.staticTexts[text].tap()
+        }
+        
+        func swipe(text: String, direction: String){
+            if(direction.elementsEqual("left")){
+                app.staticTexts[text].swipeLeft()
+            }
+            else {
+                app.staticTexts[text].swipeRight()
+            }
+        }
+        
+        func scenarioNotMapped(){
+            print("Scenario not mapped")
+            XCTAssert(false)
+        }
+        
+        func assertText(shouldBeVisible: Bool, text: String){
+            if(shouldBeVisible){
+                XCTAssert(app.staticTexts[text].exists)
+            }
+            else{
+                XCTAssert(!app.staticTexts[text].exists)
+            }
+        }
+        
+        func assertTextById(id: String, text: String){
+            XCTAssertEqual(app.staticTexts[id].label, text)
         }
         
         let bundle = Bundle(for: CucumberishInitializer.self)
